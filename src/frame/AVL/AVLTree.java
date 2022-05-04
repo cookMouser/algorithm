@@ -8,11 +8,11 @@ import java.util.List;
 public class AVLTree<K extends Comparable<K>, V> implements Map<K, V> {
 
     private class Node {
-        public K key;
-        public V value;
+        public K key; // 用于比较维护成二分搜索树
+        public V value; // 附加属性
         public Node left;
         public Node right;
-        public int height;
+        public int height; // 辅助维护平衡属性
 
         public Node(K key, V value) {
             this.key = key;
@@ -29,6 +29,7 @@ public class AVLTree<K extends Comparable<K>, V> implements Map<K, V> {
         root = add(root, key, value);
     }
 
+    // 把元素添加到以node为根的子树，并返回新根
     private Node add(Node node, K key, V value) {
         if (node == null) {
             Node newNode = new Node(key, value);
@@ -114,6 +115,7 @@ public class AVLTree<K extends Comparable<K>, V> implements Map<K, V> {
             }
         }
 
+        // 注意可能为空的情况
         if (retNode == null) {
             return null;
         }
@@ -206,12 +208,12 @@ public class AVLTree<K extends Comparable<K>, V> implements Map<K, V> {
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     private int getHeight(Node node) {
@@ -274,7 +276,8 @@ public class AVLTree<K extends Comparable<K>, V> implements Map<K, V> {
         y.left = T3;
         x.right = y;
 
-        // 更新height
+        // 右旋节点及原左子节点的height可能变化。更新height
+        // 要注意维护的先后顺序。此时y低于x
         y.height = Math.max(getHeight(y.left), getHeight(y.right));
         x.height = Math.max(getHeight(x.left), getHeight(x.right));
         return x;
@@ -287,7 +290,8 @@ public class AVLTree<K extends Comparable<K>, V> implements Map<K, V> {
         y.right = T3;
         x.left = y;
 
-        // 更新height
+        // 左旋节点及原右子节点的height可能变化。更新height
+        // 要注意维护的先后顺序。此时y低于x
         y.height = Math.max(getHeight(y.left), getHeight(y.right));
         x.height = Math.max(getHeight(x.left), getHeight(x.right));
         return x;

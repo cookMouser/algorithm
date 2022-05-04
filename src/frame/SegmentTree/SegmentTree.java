@@ -43,6 +43,7 @@ public class SegmentTree<E> {
      * 然后做merge操作，当执行到最后的时候left==right，就能从原数组提取到值arr[left]或者arr[right]，然后递归反向回去就填充好了整个树
      * @param treeIndex
      */
+    // 该方法left、right参数是为了找到叶子节点，确定叶子节点的值。treeIndex是为了定位线段树节点对应的数组索引，然后塞入值
     private void buildSegmentTree(int treeIndex, int left, int right){
         //递归终止条件
         if (left == right) {
@@ -67,6 +68,8 @@ public class SegmentTree<E> {
         set(0, 0, data.length - 1, index, e);
     }
 
+    // treeIndex用于更改对应元素值，同时用于找到左右子节点
+    // left、right用于和index比较确定当前要更改的值，同时确定子节点的区间判断向下递归的方向
     private void set(int treeIndex, int left, int right, int index, E e) {
         if (left == right && left == index) {
             tree[treeIndex] = e;
@@ -94,6 +97,8 @@ public class SegmentTree<E> {
         return query(0, 0, data.length - 1, searchLeft, searchRight);
     }
 
+    // treeIndex用于查找子节点
+    // left、right用于递归方向
     private E query(int treeIndex, int left, int right, int searchLeft, int searchRight) {
 
         //递归终止条件

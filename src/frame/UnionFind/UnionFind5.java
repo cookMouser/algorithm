@@ -53,14 +53,11 @@ public class UnionFind5 implements UF {
         }
         if (rank[pRoot] < rank[qRoot]) {
             parent[pRoot] = qRoot;
-            rank[pRoot] = 0;
         } else if (rank[pRoot] > rank[qRoot]){
             parent[qRoot] = pRoot;
-            rank[qRoot] = 0;
         } else { //相等时
             parent[qRoot] = pRoot;
             rank[pRoot] += 1;
-            rank[qRoot] = 0;
         }
     }
 

@@ -289,8 +289,9 @@ public class BST<E extends Comparable<E>> {
             } else { // 左右子节点都不为空
                 // 寻找左子节点的最大值（前驱）或者右子节点的最小值（后驱），作为后继来代替原节点。同时要把替代的节点从原位置删除
                 Node successor = minimum(node.right);
-                successor.left = node.left;
+                // leetcode上要先赋值右节点，再赋值左节点。顺序颠倒会报错
                 successor.right = removeMinimum(node.right);  // 这里面已经做了一次size--，所以删除node以后，不需要再次size--
+                successor.left = node.left;
                 node.left = null;
                 node.right = null;
                 return successor;

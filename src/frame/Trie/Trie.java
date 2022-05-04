@@ -13,6 +13,7 @@ public class Trie {
 
         public Node(boolean isWord) {
             this.isWord = isWord;
+            // 注意要初始化根节点
             next = new TreeMap<>();
         }
 
